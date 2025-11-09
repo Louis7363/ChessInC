@@ -63,7 +63,28 @@ bool is_movement_possible (int chess[8][8], int * depart,int * arrive) {
         else
             return false;
     }
-    return true;
+
+    //################### FIN TOUR ##################
+    //################### PION ######################
+    if (chess[depart[0]][depart[1]] == 1) {
+
+        if (depart[1] == arrive[1]) {
+            int nbCases = depart[0]-arrive[0];
+            if (nbCases==1 && chess[arrive[0]][arrive[1]] == 0) {
+                return true;
+            }
+            else if (nbCases==2 && depart[0]==6 && chess[arrive[0]][arrive[1]] == 0 && chess[arrive[0]+1][arrive[1]] == 0) {
+                return true;
+            }
+            else
+                return false;
+        }
+        else if (arrive[0] == depart[0]-1 && (arrive[1] == depart[1]-1 || arrive[1] == depart[1]+1 ) && chess[arrive[0]][arrive[1]]<0) {
+            return true;
+        }
+        else
+            return false;
+    }
 }
 
 int main(void) {
