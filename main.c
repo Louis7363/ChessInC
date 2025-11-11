@@ -132,10 +132,20 @@ bool is_movement_possible (int chess[8][8], int * depart,int * arrive) {
         }
     //############### CAVALIER ##################
         if (chess[depart[0]][depart[1]] == 2 ) {
-            if (((abs(depart[0] - arrive[0]) == 2B) && (abs(depart[1] - arrive[1]) == 1)) || ((abs(depart[0] - arrive[0]) == 1) && (abs(depart[1] - arrive[1]) == 2)) )
+            if (((abs(depart[0] - arrive[0]) == 2) && (abs(depart[1] - arrive[1]) == 1)) || ((abs(depart[0] - arrive[0]) == 1) && (abs(depart[1] - arrive[1]) == 2)) )
                 return true;
             return false;
         }
+
+    //############## ROI #####################
+    if (chess[depart[0]][depart[1]] == 6) {
+        if (abs(depart[0]-arrive[0]) <= 1 && abs(depart[1]-arrive[1]) <= 1 ) {
+            return(fou( chess,  depart, arrive) || (tour( chess,  depart, arrive)));
+        }
+        return false;
+    }
+
+
     }
 
 
