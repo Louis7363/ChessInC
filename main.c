@@ -29,7 +29,7 @@ int* convertisseur_case(char position[2]) {
 }
 
 bool is_movement_possible (int chess[8][8], int * depart,int * arrive) {
-    // ######## TOUR #########
+    // ################ TOUR #################
     if (chess[arrive[0]][arrive[1]] >0)
         return false;
 
@@ -85,6 +85,37 @@ bool is_movement_possible (int chess[8][8], int * depart,int * arrive) {
         else
             return false;
     }
+
+    //##################FIN PION############################
+    //################### FOU ##############################
+    if (chess[depart[0]][depart[1]] == 3) {
+        int n = abs(arrive[0] - depart[0]);
+        int n2 = abs(arrive[1]-depart[1]);
+        int s1=0;
+        int s2=0;
+        if (arrive[0] - depart[0]<0)
+            s1 = -1;
+        else
+            s1 = 1;
+        if (arrive[1] - depart[1]<0)
+            s2 = -1;
+        else
+            s2 = 1;
+
+        if (n == n2 ) {
+            for (int i = 1;i < n; i += 1) {
+                    if (chess[depart[0] + i*s1][depart[1] + i*s2] != 0)
+                        return false;
+
+            }
+            return true;
+        }
+
+        return false;
+
+
+    }
+
 }
 
 int main(void) {
@@ -127,12 +158,12 @@ int main(void) {
         bool possible = is_movement_possible(chess,coordDep,coordArr);
         //printf("%d,%d",coordDep[0],coordDep[1]);
         //printf("mouvement possible : %d",possible);
-        if (possible) {
-            chess[coordArr[0]][coordArr[1]]=chess[coordDep[0]][coordDep[1]];
-            chessVisual[coordArr[0]][coordArr[1]]=chessVisual[coordDep[0]][coordDep[1]];
-            chess[coordDep[0]][coordDep[1]] = 0;
-            chessVisual[coordDep[0]][coordDep[1]] = ".";
-        }
+            if (possible) {
+                chess[coordArr[0]][coordArr[1]]=chess[coordDep[0]][coordDep[1]];
+                chessVisual[coordArr[0]][coordArr[1]]=chessVisual[coordDep[0]][coordDep[1]];
+                chess[coordDep[0]][coordDep[1]] = 0;
+                chessVisual[coordDep[0]][coordDep[1]] = ".";
+            }
         system("clear");
         afficher_echequier(chessVisual);
 
